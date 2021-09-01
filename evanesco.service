@@ -1,0 +1,16 @@
+[Unit]
+Description=Evanesco Full Node Service
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+WorkingDirectory=/home/pepe_orozco/go-evanesco
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=/home/pepe_orozco/go-evanesco/runeva
+StandardOutput=append:/var/log/eva/eva.log
+
+[Install]
+WantedBy=multi-user.target
