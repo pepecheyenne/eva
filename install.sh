@@ -31,12 +31,16 @@ echo -e "Downloading and building Eva\n\n"
 cd ~ ; git clone https://github.com/Evanesco-Labs/go-evanesco.git ; cd go-evanesco
 make all
 mkdir avisnode data
-	cp ./build/bin/eva ./avisnode
+cp ./build/bin/eva ./avisnode
 cp ./verifykey.txt ./avisnode
 cp ./avis.json ./avisnode
 cp ./avis.toml ./avisnode
-	ln -s ./build/bin/eva .
-./eva --datadir data account new
+ln -s ./build/bin/eva .
+
+echo -e "Importing keyfile and creating genesis block\n\n"
+echo -e "Type the full path of your keyfile (ej. /tmp/keyfile.json): "
+read varkeyfile
+./eva --datadir data account import $varkeyfile
 ./eva --datadir data init ./avis.json
 
 read -p "Press any key to continue ..."
@@ -50,6 +54,11 @@ sudo mv eva/evanesco.service /etc/systemd/system/
 sudo chown root:root /etc/systemd/system/evanesco.service
 sudo chmod 644 /etc/systemd/system/evanesco.service
 
+echo -e "Configuring keyfile password in service file. Please enter your keyfile.json password:"
+read -s varpass
+sudo sed -i "s/REPLACE/$varpass/g" go-evanesco/runeva
+echo -e "keyfile.json password updated ...\n\n"
+
 read -p "Press any key to continue ..."
 
 echo -e "Configuring log rotation\n\n"
@@ -57,15 +66,18 @@ sudo eva/evanesco.logrotate /etc/logrotate.d/evanesco
 sudo chown root:root /etc/logrotate.d/evanesco
 sudo chmod 644 /etc/logrotate.d/evanesco
 
-read -p "Press any key to continue ..."
+read -p "Press any key to continue ...\n\n"
 
-##Falta configurar el evagenesis y copiar el key
+
 ##Falta instalar el agente de rackspace
 
+
 echo -e "Final step, start services\n\n"
-##sudo systemctl daemon-reload
-##sudo systemctl start evanesco
-##sudo systemctl enable evanesco
+sudo systemctl daemon-reload
+sudo systemctl enable evanesco
+
+echo -e "Just remember to start the service with the following command:\n\n     sudo systemctl start evanesco\n\n"
+echo -e "THE END"
 
 
 ##Falta cleanup
