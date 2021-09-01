@@ -59,7 +59,13 @@ sudo chmod 644 /etc/logrotate.d/evanesco
 
 read -p "Press any key to continue ..."
 
+##Falta configurar el evagenesis y copiar el key
+##Falta instalar el agente de rackspace
+
 echo -e "Final step, start services\n\n"
-sudo systemctl daemon-reload
-sudo systemctl start evanesco
-sudo systemctl enable evanesco
+##sudo systemctl daemon-reload
+##sudo systemctl start evanesco
+##sudo systemctl enable evanesco
+
+
+##Falta cleanup
