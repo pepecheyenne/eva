@@ -1,0 +1,17 @@
+/var/log/eva/eva.log {
+  rotate 30
+  daily
+  compress
+  missingok
+  notifempty
+  create 0644 pepe_orozco pepe_orozco
+}
+
+/var/log/eva/error.log {
+  rotate 12
+  monthly
+  compress
+  missingok
+  notifempty
+  create 0644 pepe_orozco pepe_orozco
+}
