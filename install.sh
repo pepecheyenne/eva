@@ -1,3 +1,5 @@
+read -p "Install of EVA is about to start. Press any key to continue ..."
+
 echo -e "Updating, Upgrading and setting up local timeZone to americas\n\n"
 sudo apt update; 
 sudo apt install git make nano gcc unzip -y
