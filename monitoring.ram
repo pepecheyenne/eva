@@ -5,7 +5,7 @@ timeout : 60
 alarms  :
     actual-memory-usage:
         label: Memory usage
-        notification_plan_id: npXXXXXXXX
+        notification_plan_id: npTechnicalContactsEmail
         criteria: |
             if (percentage(metric['actual_used'], metric['total']) > 95)
 {
