@@ -5,7 +5,7 @@ timeout : 60
 alarms  :
     cpu-usage:
         label: CPU usage
-        notification_plan_id: npXXXXXXXX
+        notification_plan_id: npTechnicalContactsEmail
         criteria: |
             if (metric['usage_average'] > 95) {
               return new AlarmStatus(CRITICAL, 'CPU usage is #{usage_average}%, above your critical threshold of 95%');
