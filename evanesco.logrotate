@@ -4,6 +4,7 @@
   compress
   missingok
   notifempty
+  copytruncate
   create 0644 pepe_orozco pepe_orozco
 }
 
@@ -13,5 +14,6 @@
   compress
   missingok
   notifempty
+  copytruncate
   create 0644 pepe_orozco pepe_orozco
 }
