@@ -74,11 +74,14 @@ read -p "Press any key to continue ...\n\n"
 
 
 echo -e "Installing monitoring agent\n\n"
+echo -e "Introduce your RS Monitoring API Key:"
+read varapikey
 cd ~
 sudo sh -c "echo 'deb http://stable.packages.cloudmonitoring.rackspace.com/ubuntu-$(lsb_release -rs)-x86_64 cloudmonitoring main' > /etc/apt/sources.list.d/rackspace-monitoring-agent.list"
 wget -qO- https://monitoring.api.rackspacecloud.com/pki/agent/linux.asc | sudo apt-key add -
 sudo apt-get update && sudo apt-get install rackspace-monitoring-agent
-sudo rackspace-monitoring-agent --setup --username pepeorozco99 --apikey b41416d886994873b96df0a2f50fcded
+sudo mv eva/monitoring.* /etc/rackspace-monitoring-agent.conf.d/
+sudo rackspace-monitoring-agent --setup --username pepeorozco99 --apikey $varapikey
 sudo rackspace-monitoring-agent start -D
 
 read -p "Press any key to continue ...\n\n"
