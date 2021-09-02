@@ -7,7 +7,7 @@ details :
 alarms  :
     disk-size:
         label: Usage on /
-        notification_plan_id: npXXXXXXXX
+        notification_plan_id: npTechnicalContactsEmail
         criteria: |
             if (percentage(metric['used'], metric['total']) > 90) {
                 return new AlarmStatus(CRITICAL, 'Disk usage is above 90%, #{used} out of #{total}');
