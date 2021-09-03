@@ -1,0 +1,16 @@
+type    : agent.plugin
+label   : EvaStat
+disabled: false
+period  : 60
+timeout : 10
+details     :
+    file  : checkeva
+    args  : []
+alarms  :
+    state:
+        label: EvaNotWorking
+        notification_plan_id: npTechnicalContactsEmail
+        criteria: |
+            if (metric['state'] > 0) {
+                return new AlarmStatus(CRITICAL, 'Eva Miner Status is DOWN');
+            }
