@@ -7,7 +7,7 @@ details     :
     file  : checkeva
     args  : []
 alarms  :
-    state:
+    status:
         label: EvaNotWorking
         notification_plan_id: npTechnicalContactsEmail
         criteria: |
