@@ -81,6 +81,7 @@ sudo sh -c "echo 'deb http://stable.packages.cloudmonitoring.rackspace.com/ubunt
 wget -qO- https://monitoring.api.rackspacecloud.com/pki/agent/linux.asc | sudo apt-key add -
 sudo apt-get update && sudo apt-get install rackspace-monitoring-agent
 sudo mv eva/monitoring.* /etc/rackspace-monitoring-agent.conf.d/
+sudo mv checkeva /usr/lib/rackspace-monitoring-agent/plugins/
 sudo rackspace-monitoring-agent --setup --username pepeorozco99 --apikey $varapikey
 sudo rackspace-monitoring-agent start -D
 
