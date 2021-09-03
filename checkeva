@@ -1,0 +1,8 @@
+#!/bin/bash
+evastat=$(tail -n 100 /var/log/eva/eva.log | grep -c "peercount=0")
+if [[ $evastat -eq 0 ]] 
+then
+  echo -e "status OK\nmetric state uint32 $evastat"
+else
+  echo -e "status failed\nmetric state uint32 $evastat"
+fi
