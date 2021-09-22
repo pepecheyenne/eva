@@ -1,22 +1,23 @@
+#!/bin/sh
+
 read -p "Install of EVA-Miner-node is about to start. Press enter to continue ..."
 echo -e "Type the node number you are installing (ex. 01)"
 read varnode
-vardirnode='miner${varnode}'
+vardirnode="miner${varnode}"
 varpathlog='/var/log/eva'
+
+echo -e "Creating EVA Miner Service Log dir and files\n\n"
+sudo mkdir -p $varpathlog
+###sudo cp /dev/null ${varpathlog}/error.log;           sudo chown pepe_orozco:pepe_orozco ${varpathlog}/error.log;           sudo chmod 644 ${varpathlog}/error.log
+   sudo cp /dev/null ${varpathlog}/${vardirnode}.log;   sudo chown pepe_orozco:pepe_orozco ${varpathlog}/${vardirnode}.log;   sudo chmod 644 ${varpathlog}/${vardirnode}.log
+ll ${varpathlog}
+read -p "Press any key to continue ..."
 
 echo -e "Updating, Upgrading and setting up local timeZone to americas\n\n"
 sudo apt update; 
 sudo apt install git make nano gcc unzip -y
 sudo apt update; sudo apt-get upgrade -y; sudo apt autoremove -y
 sudo timedatectl set-timezone America/Mexico_City
-
-read -p "Press any key to continue ..."
-
-echo -e "Creating EVA Miner Service Log dir and files\n\n"
-sudo mkdir -p $varpathlog
-###sudo cp /dev/null ${varpathlog}/error.log;           sudo chown pepe_orozco:pepe_orozco ${varpathlog}/error.log;           sudo chmod 644 ${varpathlog}/error.log
-   sudo cp /dev/null ${varpathlog}/${vardirnode}.log;   sudo chown pepe_orozco:pepe_orozco ${varpathlog}/${vardirnode}.log;   sudo chmod 644 ${varpathlog}/${vardirnode}.log
-
 read -p "Press any key to continue ..."
 
 echo -e "Installing GoLang\n\n"
@@ -34,7 +35,7 @@ read -p "Press any key to continue ..."
 echo -e "Downloading and building Eva Miner\n\n"
 cd ~ 
 wget https://ipfs.io/ipfs/QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx -O QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx
-git clone https://github.com/Evanesco-Labs/go-evanesco.git $vardirnode
+git clone https://github.com/Evanesco-Labs/miner.git $vardirnode
 cd $vardirnode
 make
 
