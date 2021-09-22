@@ -7,7 +7,7 @@ varpathlog='/var/log/${vardirnode}'
 echo -e "Updating, Upgrading and setting up local timeZone to americas\n\n"
 sudo apt update; 
 sudo apt install git make nano gcc unzip -y
-sudo apt update; apt-get upgrade -y
+sudo apt update; sudo apt-get upgrade -y; sudo apt autoremove -y
 sudo timedatectl set-timezone America/Mexico_City
 
 read -p "Press any key to continue ..."
