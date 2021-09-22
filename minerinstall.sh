@@ -108,11 +108,14 @@ read -p "Press any key to continue ..."
 ####################################### AQUI VOY
 #######################################
 
+echo "#######################################"
 echo -e "Configuring log rotation\n\n"
-sudo eva/evanesco.logrotate /etc/logrotate.d/evanesco
-sudo chown root:root /etc/logrotate.d/evanesco
-sudo chmod 644 /etc/logrotate.d/evanesco
-
+echo "#######################################"
+sudo cp eva/miner.logrotate /etc/logrotate.d/miner{varnode}
+sudo sed -i "s,nnn,${varnode},g" /etc/logrotate.d/miner{varnode}
+sudo chown root:root /etc/logrotate.d/miner{varnode}
+sudo chmod 644 /etc/logrotate.d/miner{varnode}
+sudo cat /etc/logrotate.d/miner{varnode}
 read -p "Press any key to continue ...\n\n"
 
 

@@ -1,0 +1,9 @@
+/var/log/eva/minernnn.log {
+  rotate 10
+  daily
+  compress
+  missingok
+  notifempty
+  copytruncate
+  create 0644 pepe_orozco pepe_orozco
+}
