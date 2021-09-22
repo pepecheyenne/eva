@@ -104,8 +104,9 @@ echo -e "Configuring keyfile password in service file.\n"
 echo "#######################################"
 echo -e "Enter your keyfile password and press enter: " 
 read -s varpass
-sudo echo -e $varpass > "${vardirnode}/pp${varnode}"
+sudo cp /dev/null "${vardirnode}/pp${varnode}"
 varPassFile="${vardirnode}/pp${varnode}"
+sudo echo -e $varpass >> $varPassFile
 echo -e "keyfile.json password updated ...\n\n"
 sudo cat $varPassFile
 read -p "Press enter to continue ..."
