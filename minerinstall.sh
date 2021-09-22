@@ -75,7 +75,7 @@ echo "Creating and configuring Eva Miner Service\n\n"
 echo "#######################################"
 cd ~
 varRunMiner= "${vardirminerfull}/runminer${varnode}"
-mv eva/runminer $varRunMiner
+cp "${vardirhome}/eva/runminer" $varRunMiner
 sed -i "s,xxx,${vardirminerfull},g" ${varRunMiner}
 sudo chown root:root $varRunMiner; sudo chmod 700 $varRunMiner
 sudo cat $varRunMiner
