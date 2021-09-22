@@ -1,1 +1,4 @@
-
+#!/bin/sh
+homep='/home/pepe_orozco/miner01'
+homek='/home/pepe_orozco'
+$homep/miner mine --pk $homek/QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx --key $homep/keyfile.json --passwordfile $homep/pp --coinbase 0xFa7d41Ad4C48E98654186610463927Cf7Ff66f00
