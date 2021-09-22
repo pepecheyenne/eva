@@ -9,7 +9,7 @@ Type=simple
 Restart=always
 RestartSec=1
 User=root
-ExecStart=xxx/runminer
+ExecStart=xxx/runminernnn
 StandardOutput=append:zzz
 
 [Install]

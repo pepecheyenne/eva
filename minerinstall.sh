@@ -79,7 +79,7 @@ cp $varOrigin "${vardirminerfull}/runminer${varnode}"
 varRunMiner="${vardirminerfull}/runminer${varnode}"
 sed -i "s,xxx,${vardirminerfull},g" ${varRunMiner}
 sed -i "s,yyy,${HOME},g" ${varRunMiner}
-sed -i "s,nnn,${vardirnode},g" $varRunMiner
+sed -i "s,nnn,${varnode},g" $varRunMiner
 sudo chown root:root $varRunMiner; sudo chmod 700 $varRunMiner
 sudo cat $varRunMiner
 ls -la $vardirminerfull
@@ -92,6 +92,7 @@ echo "#######################################"
 varMinerService="/etc/systemd/system/miner${varnode}.service"
 sudo cp eva/miner.service $varMinerService
 sudo sed -i "s,xxx,${vardirminerfull},g" $varMinerService
+sudo sed -i "s,nnn,${varnode},g" $varMinerService
 sudo sed -i "s,zzz,${vardirlogfull},g" $varMinerService
 sudo chown root:root $varMinerService ; sudo chmod 644 $varMinerService
 sudo systemctl daemon-reload
