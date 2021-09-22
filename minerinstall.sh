@@ -80,7 +80,7 @@ varRunMiner="${vardirminerfull}/runminer${varnode}"
 sed -i "s,xxx,${vardirminerfull},g" ${varRunMiner}
 sudo chown root:root $varRunMiner; sudo chmod 700 $varRunMiner
 sudo cat $varRunMiner
-ls -la ${vardirminerfull}
+ls -la $vardirminerfull
 read -p "Press enter to continue ..."
 
 #Creates service script
@@ -104,11 +104,13 @@ echo -e "Configuring keyfile password in service file.\n"
 echo "#######################################"
 echo -e "Enter your keyfile password and press enter: " 
 read -s varpass
-sudo cp /dev/null "${vardirnode}/pp${varnode}"
-varPassFile="${vardirnode}/pp${varnode}"
-sudo echo -e $varpass >> $varPassFile
+cp /dev/null "${vardirminerfull}/pp${varnode}"
+varPassFile="${vardirminerfull}/pp${varnode}"
+echo $varpass >> $varPassFile
+sudo chmod 600 $varPassFile
 echo -e "keyfile.json password updated ...\n\n"
 sudo cat $varPassFile
+ls -la $vardirminerfull
 read -p "Press enter to continue ..."
 
 echo "#######################################"
