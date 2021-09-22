@@ -53,7 +53,7 @@ echo "#######################################"
 echo "Downloading and building Eva Miner\n\n"
 echo "#######################################"
 cd ~ 
-wget -nc https://ipfs.io/ipfs/QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx -O QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx
+wget -nc https://ipfs.io/ipfs/QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx
 git clone https://github.com/Evanesco-Labs/miner.git $vardirminerfull
 cd $vardirminerfull
 make
@@ -78,6 +78,8 @@ varOrigin="${vardirhome}/eva/runminer"
 cp $varOrigin "${vardirminerfull}/runminer${varnode}"
 varRunMiner="${vardirminerfull}/runminer${varnode}"
 sed -i "s,xxx,${vardirminerfull},g" ${varRunMiner}
+sed -i "s,yyy,${HOME},g" ${varRunMiner}
+sed -i "s,nnn,${vardirnode},g" $varRunMiner
 sudo chown root:root $varRunMiner; sudo chmod 700 $varRunMiner
 sudo cat $varRunMiner
 ls -la $vardirminerfull
@@ -91,7 +93,6 @@ varMinerService="/etc/systemd/system/miner${varnode}.service"
 sudo cp eva/miner.service $varMinerService
 sudo sed -i "s,xxx,${vardirminerfull},g" $varMinerService
 sudo sed -i "s,zzz,${vardirlogfull},g" $varMinerService
-sudo sed -i "s,nnn,${vardirnode},g" $varMinerService
 sudo chown root:root $varMinerService ; sudo chmod 644 $varMinerService
 sudo systemctl daemon-reload
 sudo systemctl start "miner${varnode}.service"
