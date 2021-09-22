@@ -89,8 +89,8 @@ echo "Creating service script\n\n"
 echo "#######################################"
 varMinerService="/etc/systemd/system/miner${varnode}.service"
 sudo cp eva/miner.service $varMinerService
-sudo sed -i "s,xxx,${vardirminer},g" $varMinerService
-sudo sed -i "s,zzz,${vardirlog},g" $varMinerService
+sudo sed -i "s,xxx,${vardirminerfull},g" $varMinerService
+sudo sed -i "s,zzz,${vardirlogfull},g" $varMinerService
 sudo chown root:root $varMinerService ; sudo chmod 644 $varMinerService
 sudo systemctl daemon-reload
 sudo systemctl start "miner${varnode}.service"
