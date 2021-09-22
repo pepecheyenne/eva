@@ -2,7 +2,7 @@ read -p "Install of EVA-Miner-node is about to start. Press enter to continue ..
 echo -e "Type the node number you are installing (ex. 01)"
 read varnode
 vardirnode='miner${varnode}'
-varpathlog='/var/log/${vardirnode}'
+varpathlog='/var/log/eva/${vardirnode}'
 
 echo -e "Updating, Upgrading and setting up local timeZone to americas\n\n"
 sudo apt update; 
@@ -14,8 +14,8 @@ read -p "Press any key to continue ..."
 
 echo -e "Creating EVA Miner Service Log dir and files\n\n"
 sudo mkdir $varpathlog
-sudo cp /dev/null ${varpathlog}/error.log; sudo chown pepe_orozco:pepe_orozco ${varpathlog}/error.log; sudo chmod 644 ${varpathlog}/error.log
-sudo cp /dev/null ${varpathlog}/eva.log;   sudo chown pepe_orozco:pepe_orozco ${varpathlog}/eva.log;   sudo chmod 644 ${varpathlog}/eva.log
+###sudo cp /dev/null ${varpathlog}/error.log; sudo chown pepe_orozco:pepe_orozco ${varpathlog}/error.log; sudo chmod 644 ${varpathlog}/error.log
+sudo cp /dev/null ${varpathlog}.log;   sudo chown pepe_orozco:pepe_orozco ${varpathlog}.log;   sudo chmod 644 ${varpathlog}.log
 
 read -p "Press any key to continue ..."
 
