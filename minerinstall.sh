@@ -73,9 +73,14 @@ read -p "Press enter to continue ..."
 echo "#######################################"
 echo "Creating and configuring Eva Miner Service\n\n"
 echo "#######################################"
-cd ~
+cd
 varRunMiner= "${vardirminerfull}/runminer${varnode}"
-cp "${vardirhome}/eva/runminer" $varRunMiner
+echo $varRunMiner
+varOrigin="${vardirhome}/eva/runminer"
+echo $varOrigin
+read -p "Press enter to continue ... BEFORE COPY"
+cp $varOrigin $varRunMiner
+read -p "Press enter to continue ... AFTER COPY"
 sed -i "s,xxx,${vardirminerfull},g" ${varRunMiner}
 sudo chown root:root $varRunMiner; sudo chmod 700 $varRunMiner
 sudo cat $varRunMiner
