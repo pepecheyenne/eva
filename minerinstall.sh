@@ -42,20 +42,19 @@ make
 echo -e "Importing keyfile and creating genesis block\n\n"
 echo -e "Type the full path of your keyfile (ej. /tmp/keyfile.json): "
 read varkeyfile
-cp ${varkeyfile} keyfile.json
-
+cp $varkeyfile keyfile.json
 read -p "Press any key to continue ..."
-echo -e "Creating and configuring Eva Miner Service\n\n"
 
+echo -e "Creating and configuring Eva Miner Service\n\n"
 cd ~
-varRunMiner= ${vardirnode}/runminer${varnode}
+varRunMiner="${vardirnode}/runminer${varnode}"
 
 #Creates runminer script
 mv eva/runminer ${varRunMiner}
 sudo chown root:root ${varRunMiner}; sudo chmod 700 ${varRunMiner}
 
 #Creates service script
-sudo mv eva/evanesco.service /etc/systemd/system/miner${varnode}.service
+sudo mv eva/miner.service  /etc/systemd/system/miner${varnode}.service
 sudo chown root:root /etc/systemd/system/miner${varnode}.service; sudo chmod 644 /etc/systemd/system/miner${varnode}.service
 
 echo -e "Configuring keyfile password in service file. Please enter your keyfile.json password:"
