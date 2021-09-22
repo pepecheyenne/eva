@@ -100,16 +100,17 @@ read -p "Press enter to continue ..."
 echo "#######################################"
 echo -e "Configuring keyfile password in service file.\n"
 echo "#######################################"
+varPassFile="${vardirnode}/pp${varnode}"
 read -s "Enter your keyfile password and press enter: " varpass
-sudo echo -e $varpass >> "${vardirnode}/pp${varnode}"
+sudo echo -e $varpass >> $varPassFile
 echo -e "keyfile.json password updated ...\n\n"
-sudo cat "${vardirnode}/pp${varnode}"
+sudo cat $varPassFile
 read -p "Press enter to continue ..."
 
 echo "#######################################"
 echo -e "Configuring log rotation\n\n"
 echo "#######################################"
-varLogRotation="/etc/logrotate.d/miner{varnode}"
+varLogRotation="/etc/logrotate.d/miner${varnode}"
 sudo cp eva/miner.logrotate $varLogRotation
 sudo sed -i "s,nnn,${varnode},g" $varLogRotation
 sudo chown root:root $varLogRotation
