@@ -53,7 +53,7 @@ echo "#######################################"
 echo "Downloading and building Eva Miner\n\n"
 echo "#######################################"
 cd ~ 
-wget https://ipfs.io/ipfs/QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx -O QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx
+wget -nc https://ipfs.io/ipfs/QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx -O QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx
 git clone https://github.com/Evanesco-Labs/miner.git $vardirminerfull
 cd $vardirminerfull
 make
@@ -75,15 +75,12 @@ echo "Creating and configuring Eva Miner Service\n\n"
 echo "#######################################"
 cd
 varOrigin="${vardirhome}/eva/runminer"
-echo $varOrigin
-read -p "Press enter to continue ... BEFORE COPY"
 cp $varOrigin "${vardirminerfull}/runminer${varnode}"
 varRunMiner="${vardirminerfull}/runminer${varnode}"
-echo $varRunMiner
-read -p "Press enter to continue ... AFTER COPY"
 sed -i "s,xxx,${vardirminerfull},g" ${varRunMiner}
 sudo chown root:root $varRunMiner; sudo chmod 700 $varRunMiner
 sudo cat $varRunMiner
+ls -la ${vardirminerfull}
 read -p "Press enter to continue ..."
 
 #Creates service script
