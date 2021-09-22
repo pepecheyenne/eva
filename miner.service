@@ -4,13 +4,13 @@ After=network.target
 StartLimitIntervalSec=0
 
 [Service]
-WorkingDirectory=####/home/pepe_orozco/go-evanesco
+WorkingDirectory=xxx
 Type=simple
 Restart=always
 RestartSec=1
 User=root
-ExecStart=####/home/pepe_orozco/go-evanesco/runeva
-StandardOutput=append:####/var/log/eva/eva.log
+ExecStart=xxx/runminer
+StandardOutput=append:zzz/eva.log
 
 [Install]
 WantedBy=multi-user.target
