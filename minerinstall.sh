@@ -1,26 +1,40 @@
 #!/bin/bash
-
-read -p "Install of EVA-Miner-node is about to start. Press enter to continue ..."
-echo -e "Type the node number you are installing (ex. 01)"
-read varnode
+#Start asking for miner node number
+echo "#######################################"
+echo "Install of EVA-Miner-node is about to start. Press any key to continue ..."
+echo "#######################################"
+echo "#######################################"
+read -p "Type the node number you are installing (ex. 01): " varnode
+##echo $varnode
+varpathlog="/var/log/eva"
 vardirnode="miner${varnode}"
-varpathlog='/var/log/eva'
+vardirhome=pwd
+vardirminer="${vardirhome}/${vardirnode}"
 
-echo -e "Creating EVA Miner Service Log dir and files\n\n"
-sudo mkdir -p $varpathlog
-###sudo cp /dev/null ${varpathlog}/error.log;           sudo chown pepe_orozco:pepe_orozco ${varpathlog}/error.log;           sudo chmod 644 ${varpathlog}/error.log
-   sudo cp /dev/null ${varpathlog}/${vardirnode}.log;   sudo chown pepe_orozco:pepe_orozco ${varpathlog}/${vardirnode}.log;   sudo chmod 644 ${varpathlog}/${vardirnode}.log
-ls -la ${varpathlog}
-read -p "Press any key to continue ..."
+#Miner Logs
+echo "#######################################"
+echo "Creating EVA Miner Service Log dir and files\n\n"
+echo "#######################################"
+sudo mkdir $varpathlog
+$varpathlogfull="${varpathlog}/miner${varnode}.log"
+sudo cp /dev/null ${varpathlogfull} ; sudo chown pepe_orozco:pepe_orozco ${varpathlogfull} ;   sudo chmod 644 ${varpathlogfull}
+ls -la $varpathlog
+read "Press enter to continue ..."
 
-echo -e "Updating, Upgrading and setting up local timeZone to americas\n\n"
+#Basic updates and setup
+echo "#######################################"
+echo "Updating, Upgrading and setting up local timeZone to americas\n\n"
+echo "#######################################"
 sudo apt update; 
 sudo apt install git make nano gcc unzip -y
-sudo apt update; sudo apt-get upgrade -y; sudo apt autoremove -y
+sudo apt update; sudo apt upgrade -y; sudo apt autoremove -y
 sudo timedatectl set-timezone America/Mexico_City
-read -p "Press any key to continue ..."
+read -p "Press enter to continue ..."
 
-echo -e "Installing GoLang\n\n"
+#Instalar GoLang
+echo "#######################################"
+echo "Installing GoLang\n\n"
+echo "#######################################"
 cd ~
 wget https://golang.org/dl/go1.17.1.linux-amd64.tar.gz
 tar xvf go1.17.1.linux-amd64.tar.gz
@@ -30,43 +44,70 @@ sudo echo -e "\n\nexport GOPATH=\$HOME/work\nexport PATH=\$PATH:/usr/local/go/bi
 source ~/.profile
 go version
 rm -f go1.17.1.linux-amd64.tar.gz
-read -p "Press any key to continue ..."
+read -p "Press enter to continue ..."
 
-echo -e "Downloading and building Eva Miner\n\n"
+#Download Eva Miner from GitHub and compile it
+echo "#######################################"
+echo "Downloading and building Eva Miner\n\n"
+echo "#######################################"
 cd ~ 
 wget https://ipfs.io/ipfs/QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx -O QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx
 git clone https://github.com/Evanesco-Labs/miner.git $vardirnode
 cd $vardirnode
 make
+read -p "Press enter to continue ..."
 
-echo -e "Importing keyfile and creating genesis block\n\n"
-echo -e "Type the full path of your keyfile (ej. /tmp/keyfile.json): "
-read varkeyfile
-cp $varkeyfile keyfile.json
-read -p "Press any key to continue ..."
 
-echo -e "Creating and configuring Eva Miner Service\n\n"
+#Import keyfile
+echo "#######################################"
+echo "Importing keyfile\n\n"
+echo "#######################################"
+read -p "Type the full path of your keyfile (ej. /tmp/keyfile.json): " varkeyfile
+cp ${varkeyfile} keyfile.json
+ls -la .
+read -p "Press enter to continue ..."
+
+#Creating Miner Service 
+echo "#######################################"
+echo "Creating and configuring Eva Miner Service\n\n"
+echo "#######################################"
 cd ~
-varRunMiner="${vardirnode}/runminer${varnode}"
-
-#Creates runminer script
+varRunMiner= ${vardirnode}/runminer${varnode}
 mv eva/runminer ${varRunMiner}
+sed -i "s,xxx,${vardirminer},g" ${varRunMiner}
 sudo chown root:root ${varRunMiner}; sudo chmod 700 ${varRunMiner}
+sudo cat ${varRunMiner}
+read -p "Press enter to continue ..."
 
 #Creates service script
-sudo mv eva/miner.service  /etc/systemd/system/miner${varnode}.service
+echo "#######################################"
+echo "Creating service script\n\n"
+echo "#######################################"
+sudo mv eva/miner.service /etc/systemd/system/miner${varnode}.service
+sudo sed -i "s,xxx,${vardirminer},g" /etc/systemd/system/miner${varnode}.service
+sudo sed -i "s,zzz,${varpathlog},g" /etc/systemd/system/miner${varnode}.service
 sudo chown root:root /etc/systemd/system/miner${varnode}.service; sudo chmod 644 /etc/systemd/system/miner${varnode}.service
+sudo systemctl daemon-reload
+sudo systemctl start miner${varnode}.service
+sudo systemctl enable miner${varnode}.service
+ls -la /etc/systemd/system/
+sudo cat /etc/systemd/system/miner${varnode}.service
+read -p "Press enter to continue ..."
 
-echo -e "Configuring keyfile password in service file. Please enter your keyfile.json password:"
-read -s varpass
+echo "#######################################"
+echo -e "Configuring keyfile password in service file.\n"
+echo "#######################################"
+read -s "Enter your keyfile password and press enter: "varpass
 sudo echo -e ${varpass} >> ${vardirnode}/pp${varnode}
 echo -e "keyfile.json password updated ...\n\n"
-
+sudo cat ${vardirnode}/pp${varnode}
 read -p "Press any key to continue ..."
+
 #######################################
 ####################################### AQUI VOY
 ####################################### AQUI VOY
 #######################################
+
 echo -e "Configuring log rotation\n\n"
 sudo eva/evanesco.logrotate /etc/logrotate.d/evanesco
 sudo chown root:root /etc/logrotate.d/evanesco
