@@ -6,7 +6,7 @@ echo "#######################################"
 echo "#######################################"
 read -p "Type the node number you are installing (ex. 01): " varnode
 ##Home folder
-vardirhome=pwd
+vardirhome=$HOME
 ##Logs Folder & Log file full path
 vardirlog="/var/log/eva"
 vardirlogfull="${vardirlog}/miner${varnode}.log"
