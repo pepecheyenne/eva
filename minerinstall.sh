@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #Start asking for miner node number
 echo "#######################################"
 echo "Install of EVA-Miner-node is about to start. Press any key to continue ..."
