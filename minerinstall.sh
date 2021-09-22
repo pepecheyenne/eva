@@ -74,7 +74,7 @@ echo "#######################################"
 echo "Creating and configuring Eva Miner Service\n\n"
 echo "#######################################"
 cd
-varRunMiner= "${vardirminerfull}/runminer${varnode}"
+varRunMiner=echo "${vardirminerfull}/runminer${varnode}"
 echo $varRunMiner
 varOrigin="${vardirhome}/eva/runminer"
 echo $varOrigin
