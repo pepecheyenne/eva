@@ -5,20 +5,22 @@ echo "Install of EVA-Miner-node is about to start. Press any key to continue ...
 echo "#######################################"
 echo "#######################################"
 read -p "Type the node number you are installing (ex. 01): " varnode
-##echo $varnode
-varpathlog="/var/log/eva"
-vardirnode="miner${varnode}"
+##Home folder
 vardirhome=pwd
-vardirminer="${vardirhome}/${vardirnode}"
+##Logs Folder & Log file full path
+vardirlog="/var/log/eva"
+vardirlogfull="${vardirlog}/miner${varnode}.log"
+##Miner Node Number & Miner Folder
+vardirnode="miner${varnode}"
+vardirminerfull="${vardirhome}/${vardirnode}"
 
 #Miner Logs
 echo "#######################################"
 echo "Creating EVA Miner Service Log dir and files\n\n"
 echo "#######################################"
-sudo mkdir -p $varpathlog
-$varpathlogfull="${varpathlog}/miner${varnode}.log"
-sudo cp /dev/null ${varpathlogfull} ; sudo chown pepe_orozco:pepe_orozco ${varpathlogfull} ;   sudo chmod 644 ${varpathlogfull}
-ls -la $varpathlog
+sudo mkdir -p $vardirlog
+sudo cp /dev/null ${vardirlogfull} ; sudo chown pepe_orozco:pepe_orozco ${vardirlogfull} ;   sudo chmod 644 ${vardirlogfull}
+ls -la $vardirlog
 read "Press enter to continue ..."
 
 #Basic updates and setup
@@ -52,8 +54,8 @@ echo "Downloading and building Eva Miner\n\n"
 echo "#######################################"
 cd ~ 
 wget https://ipfs.io/ipfs/QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx -O QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx
-git clone https://github.com/Evanesco-Labs/miner.git $vardirnode
-cd $vardirnode
+git clone https://github.com/Evanesco-Labs/miner.git $vardirminerfull
+cd $vardirminerfull
 make
 read -p "Press enter to continue ..."
 
@@ -63,7 +65,7 @@ echo "#######################################"
 echo "Importing keyfile\n\n"
 echo "#######################################"
 read -p "Type the full path of your keyfile (ej. /tmp/keyfile.json): " varkeyfile
-cp ${varkeyfile} keyfile.json
+cp $varkeyfile keyfile.json
 ls -la .
 read -p "Press enter to continue ..."
 
@@ -72,52 +74,53 @@ echo "#######################################"
 echo "Creating and configuring Eva Miner Service\n\n"
 echo "#######################################"
 cd ~
-varRunMiner= ${vardirnode}/runminer${varnode}
-mv eva/runminer ${varRunMiner}
-sed -i "s,xxx,${vardirminer},g" ${varRunMiner}
-sudo chown root:root ${varRunMiner}; sudo chmod 700 ${varRunMiner}
-sudo cat ${varRunMiner}
+varRunMiner= "${vardirminerfull}/runminer${varnode}"
+mv eva/runminer $varRunMiner
+sed -i "s,xxx,${vardirminerfull},g" ${varRunMiner}
+sudo chown root:root $varRunMiner; sudo chmod 700 $varRunMiner
+sudo cat $varRunMiner
 read -p "Press enter to continue ..."
 
 #Creates service script
 echo "#######################################"
 echo "Creating service script\n\n"
 echo "#######################################"
-sudo mv eva/miner.service /etc/systemd/system/miner${varnode}.service
-sudo sed -i "s,xxx,${vardirminer},g" /etc/systemd/system/miner${varnode}.service
-sudo sed -i "s,zzz,${varpathlog},g" /etc/systemd/system/miner${varnode}.service
-sudo chown root:root /etc/systemd/system/miner${varnode}.service; sudo chmod 644 /etc/systemd/system/miner${varnode}.service
+varMinerService="/etc/systemd/system/miner${varnode}.service"
+sudo cp eva/miner.service $varMinerService
+sudo sed -i "s,xxx,${vardirminer},g" $varMinerService
+sudo sed -i "s,zzz,${vardirlog},g" $varMinerService
+sudo chown root:root $varMinerService ; sudo chmod 644 $varMinerService
 sudo systemctl daemon-reload
-sudo systemctl start miner${varnode}.service
-sudo systemctl enable miner${varnode}.service
+sudo systemctl start "miner${varnode}.service"
+sudo systemctl enable "miner${varnode}.service"
 ls -la /etc/systemd/system/
-sudo cat /etc/systemd/system/miner${varnode}.service
+sudo cat $varMinerService
 read -p "Press enter to continue ..."
 
 echo "#######################################"
 echo -e "Configuring keyfile password in service file.\n"
 echo "#######################################"
-read -s "Enter your keyfile password and press enter: "varpass
-sudo echo -e ${varpass} >> ${vardirnode}/pp${varnode}
+read -s "Enter your keyfile password and press enter: " varpass
+sudo echo -e $varpass >> "${vardirnode}/pp${varnode}"
 echo -e "keyfile.json password updated ...\n\n"
-sudo cat ${vardirnode}/pp${varnode}
-read -p "Press any key to continue ..."
-
-#######################################
-####################################### AQUI VOY
-####################################### AQUI VOY
-#######################################
+sudo cat "${vardirnode}/pp${varnode}"
+read -p "Press enter to continue ..."
 
 echo "#######################################"
 echo -e "Configuring log rotation\n\n"
 echo "#######################################"
-sudo cp eva/miner.logrotate /etc/logrotate.d/miner{varnode}
-sudo sed -i "s,nnn,${varnode},g" /etc/logrotate.d/miner{varnode}
-sudo chown root:root /etc/logrotate.d/miner{varnode}
-sudo chmod 644 /etc/logrotate.d/miner{varnode}
-sudo cat /etc/logrotate.d/miner{varnode}
-read -p "Press any key to continue ...\n\n"
+varLogRotation="/etc/logrotate.d/miner{varnode}"
+sudo cp eva/miner.logrotate $varLogRotation
+sudo sed -i "s,nnn,${varnode},g" $varLogRotation
+sudo chown root:root $varLogRotation
+sudo chmod 644 $varLogRotation
+sudo cat $varLogRotation
+read -p "Press enter to continue ...\n\n"
 
+#######################################
+####################################### AQUI VOY
+####################################### AQUI VOY
+#######################################
 
 echo -e "Installing monitoring agent\n\n"
 echo -e "Introduce your RS Monitoring API Key:"
