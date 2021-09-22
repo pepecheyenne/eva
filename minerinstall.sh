@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #Start asking for miner node number
 echo "#######################################"
 echo "Install of EVA-Miner-node is about to start. Press any key to continue ..."
@@ -21,7 +21,7 @@ echo "#######################################"
 sudo mkdir -p $vardirlog
 sudo cp /dev/null ${vardirlogfull} ; sudo chown pepe_orozco:pepe_orozco ${vardirlogfull} ;   sudo chmod 644 ${vardirlogfull}
 ls -la $vardirlog
-read "Press enter to continue ..."
+read -p "Press enter to continue ..."
 
 #Basic updates and setup
 echo "#######################################"
