@@ -1,4 +1,4 @@
-read -p "Install of EVA-Miner-node is about to start. Press any key to continue ..."
+read -p "Install of EVA-Miner-node is about to start. Press enter to continue ..."
 echo -e "Type the node number you are installing (ex. 01)"
 read varnode
 vardirnode='miner${varnode}'
