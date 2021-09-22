@@ -15,7 +15,7 @@ vardirminer="${vardirhome}/${vardirnode}"
 echo "#######################################"
 echo "Creating EVA Miner Service Log dir and files\n\n"
 echo "#######################################"
-sudo mkdir $varpathlog
+sudo mkdir -p $varpathlog
 $varpathlogfull="${varpathlog}/miner${varnode}.log"
 sudo cp /dev/null ${varpathlogfull} ; sudo chown pepe_orozco:pepe_orozco ${varpathlogfull} ;   sudo chmod 644 ${varpathlogfull}
 ls -la $varpathlog
