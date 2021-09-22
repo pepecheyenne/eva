@@ -91,6 +91,7 @@ varMinerService="/etc/systemd/system/miner${varnode}.service"
 sudo cp eva/miner.service $varMinerService
 sudo sed -i "s,xxx,${vardirminerfull},g" $varMinerService
 sudo sed -i "s,zzz,${vardirlogfull},g" $varMinerService
+sudo sed -i "s,nnn,${vardirnode},g" $varMinerService
 sudo chown root:root $varMinerService ; sudo chmod 644 $varMinerService
 sudo systemctl daemon-reload
 sudo systemctl start "miner${varnode}.service"
@@ -107,9 +108,8 @@ read -s varpass
 cp /dev/null "${vardirminerfull}/pp${varnode}"
 varPassFile="${vardirminerfull}/pp${varnode}"
 echo $varpass >> $varPassFile
-sudo chmod 600 $varPassFile
+sudo chmod 400 $varPassFile ; sudo chown root:root $varPassFile
 echo -e "keyfile.json password updated ...\n\n"
-sudo cat $varPassFile
 ls -la $vardirminerfull
 read -p "Press enter to continue ..."
 
@@ -124,15 +124,22 @@ sudo chmod 644 $varLogRotation
 sudo cat $varLogRotation
 read -p "Press enter to continue ...\n\n"
 
-#######################################
-####################################### AQUI VOY
-####################################### AQUI VOY
-#######################################
+echo "#######################################"
+echo -e "Starting Services"
+echo "#######################################"
+sudo systemctl start ${vardirnode}
+sudo systemctl status ${vardirnode}
+read -p "Press enter to continue ...\n\n"
 
+#######################################
+####################################### AQUI VOY
+####################################### AQUI VOY
+#######################################
+echo "#######################################"
 echo -e "Installing monitoring agent\n\n"
-echo -e "Introduce your RS Monitoring API Key:"
-read varapikey
-cd ~
+echo "#######################################"
+read -p "Introduce your RS Monitoring API Key:" varapikey
+cd
 sudo sh -c "echo 'deb http://stable.packages.cloudmonitoring.rackspace.com/ubuntu-$(lsb_release -rs)-x86_64 cloudmonitoring main' > /etc/apt/sources.list.d/rackspace-monitoring-agent.list"
 wget -qO- https://monitoring.api.rackspacecloud.com/pki/agent/linux.asc | sudo apt-key add -
 sudo apt-get update && sudo apt-get install rackspace-monitoring-agent
@@ -141,14 +148,11 @@ sudo mv checkeva /usr/lib/rackspace-monitoring-agent/plugins/
 sudo chmod 771 /usr/lib/rackspace-monitoring-agent/plugins/checkeva
 sudo rackspace-monitoring-agent --setup --username pepeorozco99 --apikey $varapikey
 sudo rackspace-monitoring-agent start -D
-
 read -p "Press any key to continue ...\n\n"
 
-echo -e "Final step, start services\n\n"
-sudo systemctl daemon-reload
-sudo systemctl enable evanesco
 
-echo -e "Just remember to start the service with the following command:\n\n     sudo systemctl start evanesco\n\n"
+
+echo -e "Just remember to control the service with the following command:\n\n     sudo systemctl start sudo systemctl [start,stop,status] ${vardirnode}\n\n"
 echo -e "THE END"
 
 
