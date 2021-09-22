@@ -102,9 +102,8 @@ read -p "Press enter to continue ..."
 echo "#######################################"
 echo -e "Configuring keyfile password in service file.\n"
 echo "#######################################"
-stty -echo
-read "Enter your keyfile password and press enter: " varpass
-stty echo
+echo -e "Enter your keyfile password and press enter: " 
+read -s varpass
 sudo echo -e $varpass > "${vardirnode}/pp${varnode}"
 varPassFile="${vardirnode}/pp${varnode}"
 echo -e "keyfile.json password updated ...\n\n"
