@@ -42,7 +42,7 @@ wget https://golang.org/dl/go1.17.1.linux-amd64.tar.gz
 tar xvf go1.17.1.linux-amd64.tar.gz
 sudo chown -R root:root ./go
 sudo mv go /usr/local
-sudo echo -e "\n\nexport GOPATH=\$HOME/work\nexport PATH=\$PATH:/usr/local/go/bin:\$GOPATH/bin" >> ~/.profile
+echo -e "\n\nexport PATH=\$PATH:/usr/local/go/bin" >> ~/.profile
 source ~/.profile
 go version
 rm -f go1.17.1.linux-amd64.tar.gz
@@ -151,8 +151,9 @@ sudo cp eva/monitoring.cpu /etc/rackspace-monitoring-agent.conf.d/
 sudo chmod 771 /usr/lib/rackspace-monitoring-agent/plugins/*
 sudo rackspace-monitoring-agent --setup --username pepeorozco99 --apikey $varapikey
 sudo rackspace-monitoring-agent start -D
-read -p "Press any key to continue ...\n\n"
-
+sudo systemctl start  rackspace-monitoring-agent
+sudo systemctl enable rackspace-monitoring-agent
+sudo systemctl status rackspace-monitoring-agent
 
 
 echo -e "Just remember to control the service with the following command:\n\n     sudo systemctl start sudo systemctl [start,stop,status] ${vardirnode}\n\n"
