@@ -23,16 +23,6 @@ sudo cp /dev/null ${vardirlogfull} ; sudo chown pepe_orozco:pepe_orozco ${vardir
 ls -la $vardirlog
 read -p "Press enter to continue ..."
 
-#Basic updates and setup
-echo "#######################################"
-echo "Updating, Upgrading and setting up local timeZone to americas\n\n"
-echo "#######################################"
-sudo apt update; 
-sudo apt install git make nano gcc unzip -y
-sudo apt update; sudo apt upgrade -y; sudo apt autoremove -y
-sudo timedatectl set-timezone America/Mexico_City
-read -p "Press enter to continue ..."
-
 #Download Eva Miner from GitHub and compile it
 echo "#######################################"
 echo "Downloading and building Eva Miner\n\n"
@@ -129,9 +119,9 @@ cd
 sudo sh -c "echo 'deb http://stable.packages.cloudmonitoring.rackspace.com/ubuntu-$(lsb_release -rs)-x86_64 cloudmonitoring main' > /etc/apt/sources.list.d/rackspace-monitoring-agent.list"
 wget -qO- https://monitoring.api.rackspacecloud.com/pki/agent/linux.asc | sudo apt-key add -
 sudo apt-get update && sudo apt-get install rackspace-monitoring-agent
-sudo mv eva/monitoring.* /etc/rackspace-monitoring-agent.conf.d/
-sudo mv checkeva /usr/lib/rackspace-monitoring-agent/plugins/
-sudo chmod 771 /usr/lib/rackspace-monitoring-agent/plugins/checkeva
+sudo cp eva/monitoring.fs  /etc/rackspace-monitoring-agent.conf.d/
+sudo cp eva/monitoring.ram /etc/rackspace-monitoring-agent.conf.d/
+sudo cp eva/monitoring.cpu /etc/rackspace-monitoring-agent.conf.d/
 sudo rackspace-monitoring-agent --setup --username pepeorozco99 --apikey $varapikey
 sudo rackspace-monitoring-agent start -D
 read -p "Press any key to continue ...\n\n"
