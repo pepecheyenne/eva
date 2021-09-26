@@ -1,7 +1,9 @@
 #!/bin/sh
+avisnode='/home/pepe_orozco/go-evanesco/avisnode'
+zkk='/home/pepe_orozco/'
 
 #Only FullNode
 #/home/pepe_orozco/go-evanesco/eva --datadir /home/pepe_orozco/go-evanesco/data --syncmode 'full' --port 30303 --rpc --rpcaddr '0.0.0.0' --rpccorsdomain "*" --rpcport 8545 --rpcapi 'personal,eth,net,web3,txpool,miner,clique' --ws --ws.addr '0.0.0.0' --ws.port 7777 --ws.api 'personal,eth,net,web3,txpool,miner,clique' --zkpvkpath ./verifykey.txt --config /home/pepe_orozco/go-evanesco/avis.toml
 
 #FullNode and Miner
-/home/pepe_orozco/go-evanesco/eva --datadir /home/pepe_orozco/go-evanesco/data --syncmode 'full' --port 30303 --rpc --rpcaddr '0.0.0.0' --rpccorsdomain "*" --rpcport 8545 --rpcapi 'personal,eth,net,web3,txpool,miner,clique' --ws --ws.addr '0.0.0.0' --ws.port 7777 --ws.api 'personal,eth,net,web3,txpool,miner,clique' --zkpminer --zkppkpath /home/pepe_orozco/go-evanesco/QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx --zkpvkpath /home/pepe_orozco/go-evanesco/verifykey.txt --zkpkeypath /home/pepe_orozco/evakey-linux/keyfile.json --zkppassword REPLACE --config /home/pepe_orozco/go-evanesco/avis.toml
+$avisnode/eva --datadir $avisnode/data --syncmode 'fast' --networkid 2213 --port 30304 --rpc --rpcaddr '0.0.0.0' --rpccorsdomain "*" --rpcport 8546 --rpcapi 'personal,eth,net,web3,txpool,miner,clique' --ws --ws.addr '0.0.0.0' --ws.port 7778 --ws.api 'personal,eth,net,web3,txpool,miner,clique' --zkpminer --zkppkpath $zkk/QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx --zkppassword CasaCometaPrincipiante2121 --zkpvkpath $avisnode/verifykey.txt --config $avisnode/avis.toml
