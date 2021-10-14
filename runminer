@@ -2,4 +2,4 @@
 homeminer=xxx
 homehome=yyy
 
-$homeminer/miner mine --pk $homehome/QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx --key $homeminer/keyfile.json --passwordfile $homeminer/ppnnn --coinbase 0xFa7d41Ad4C48E98654186610463927Cf7Ff66f00
+$homeminer/miner mine --pk $homehome/QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx --key $homeminer/keyfile.json --passwordfile $homeminer/ppnnn --coinbase 0x...
