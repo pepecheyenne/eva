@@ -1,0 +1,5 @@
+#!/bin/sh
+homeminer=xxx
+homehome=yyy
+
+$homeminer/miner mine --pk $homehome/QmNpJg4jDFE4LMNvZUzysZ2Ghvo4UJFcsjguYcx4dTfwKx --key $homeminer/keyfile.json --passwordfile $homeminer/ppnnn --coinbase 0x...
